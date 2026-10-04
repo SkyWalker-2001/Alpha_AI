@@ -1,0 +1,27 @@
+{
+  "name": "alphaai",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A local, agentic, Claude-like assistant powered by your own Qwen model via Ollama.",
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "cli": "npm run start -w @alphaai/cli",
+    "server": "npm run start -w @alphaai/server",
+    "web": "npm run dev -w @alphaai/web",
+    "dev": "concurrently -k -n server,web -c green,cyan \"npm run server\" \"npm run web\"",
+    "typecheck": "tsc -p packages/core && tsc -p packages/server && tsc -p packages/cli",
+    "build": "npm run typecheck && npm run build -w @alphaai/web",
+    "doctor": "node --import tsx packages/core/src/doctor.ts"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}
